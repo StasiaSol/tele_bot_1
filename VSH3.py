@@ -10,10 +10,12 @@ ans = ''
 @bot.message_handler(commands = ['start'])
 def start_message(message):
     keyboard = types.InlineKeyboardMarkup()
-    keyboard.row(ib('7',callback_data='7'),ib('8',callback_data='8'),ib('9',callback_data='9'),ib('x',callback_data='*'))
-    keyboard.row(ib('4',callback_data='4'),ib('5',callback_data='5'),ib('6',callback_data='6'),ib('-',callback_data='-'))
-    keyboard.row(ib('1',callback_data='1'),ib('2',callback_data='2'),ib('3',callback_data='3'),ib('+',callback_data='+'))
-    keyboard.row(ib('0',callback_data='0'),ib('/',callback_data='/'),ib('=',callback_data='='))
+    num = [['7','8','9','*'],['4','5','6','-'],['1','2','3','+'],['0','/','=']]
+    for n in num:
+        if len(n)==4:
+            keyboard.row(ib(n[0],callback_data=n[0]),ib(n[1],callback_data=n[1]),ib(n[2],callback_data=n[2]),ib(n[3],callback_data=n[3]))
+        elif len(n)==3:
+            keyboard.row(ib(n[0],callback_data=n[0]),ib(n[1],callback_data=n[1]),ib(n[2],callback_data=n[2]))
     
     bot.send_message(message.chat.id,'Calculator',reply_markup=keyboard)
     
